@@ -25,3 +25,13 @@ async def get_sura(sura_number: int,  with_tashkeel: bool = False, basmalah: boo
 @quranAppAPI.get("/sura/{sura_number}/verse/{verse_number}")
 async def get_verse(sura_number: int, verse_number: int, with_tashkeel: bool = False):
     return quranPkg.quran.get_verse(sura_number, verse_number, with_tashkeel)
+
+
+@quranAppAPI.get("/suras/{sura_name}")
+async def get_sura_number(sura_name: str):
+    return quranPkg.quran.get_sura_number(sura_name)
+
+
+@quranAppAPI.get("/suras")
+async def get_sura_name(sura_number: int = None):
+    return quranPkg.quran.get_sura_name(sura_number)
