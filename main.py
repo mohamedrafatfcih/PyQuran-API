@@ -1,8 +1,10 @@
 from ctypes import Union
 from fastapi import FastAPI
 import pyquran as quranPkg
+from pyquran_interface import QuranRetrivalInterface
 
 quranAppAPI = FastAPI()
+quranRetriavalInterface = QuranRetrivalInterface()
 
 
 @quranAppAPI.get("/")
@@ -30,19 +32,19 @@ async def get_sura_number(sura_name: str):
 
 @quranAppAPI.get("/suras/")
 async def get_sura(sura_number: int,  with_tashkeel: bool = False, basmalah: bool = False):
-    return quranPkg.quran.get_sura(sura_number, with_tashkeel, basmalah)
+    return await quranRetriavalInterface.get_sura_content(sura_number, with_tashkeel, basmalah)
 
 
 @quranAppAPI.get("/suras/verse")
 async def get_verse(sura_number: int, verse_number: int, with_tashkeel: bool = False):
-    return quranPkg.quran.get_verse(sura_number, verse_number, with_tashkeel)
+    return await quranRetriavalInterface.get_verse_content(sura_number, verse_number, with_tashkeel)
 
 
 @quranAppAPI.get("/quran/suras/")
 async def get_all_quran():
     suras = []
-    for sura_number in range(0, 113):
-        sura = quranPkg.quran.get_sura(
+    for sura_number in range(1, 115):
+        sura = await quranRetriavalInterface.get_sura_content(
             sura_number, with_tashkeel=True, basmalah=True)
         suras.append(sura)
     return suras
