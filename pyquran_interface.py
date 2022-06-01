@@ -8,3 +8,9 @@ class QuranRetrivalInterface:
 
     async def get_verse_content(self, sura_number: int, verse_number: int, with_tashkeel: bool = False):
         return quranPkg.quran.get_verse(sura_number, verse_number, with_tashkeel=with_tashkeel)
+
+    async def get_all_suras(self, with_tashkeel: bool, basmalah: bool):
+        suras = []
+        for sura_number in range(1, 115):
+            suras.append(await self.get_sura_content(sura_number, with_tashkeel, basmalah))
+        return suras

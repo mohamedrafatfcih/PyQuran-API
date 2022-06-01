@@ -41,10 +41,5 @@ async def get_verse(sura_number: int, verse_number: int, with_tashkeel: bool = F
 
 
 @quranAppAPI.get("/quran/suras/")
-async def get_all_quran():
-    suras = []
-    for sura_number in range(1, 115):
-        sura = await quranRetriavalInterface.get_sura_content(
-            sura_number, with_tashkeel=True, basmalah=True)
-        suras.append(sura)
-    return suras
+async def get_all_quran(with_tashkeel: bool = False, basmalah: bool = False):
+    return await quranRetriavalInterface.get_all_suras(with_tashkeel=with_tashkeel, basmalah=basmalah)
