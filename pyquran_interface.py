@@ -1,4 +1,5 @@
 import pyquran as quranPkg
+from typing import List
 
 
 class QuranRetrivalInterface:
@@ -12,5 +13,11 @@ class QuranRetrivalInterface:
     async def get_all_suras(self, with_tashkeel: bool, basmalah: bool):
         suras = []
         for sura_number in range(1, 115):
+            suras.append(await self.get_sura_content(sura_number, with_tashkeel, basmalah))
+        return suras
+
+    async def get_selected_suras_content(self, suras_numbers: List[int], with_tashkeel: bool, basmalah: bool):
+        suras = []
+        for sura_number in suras_numbers:
             suras.append(await self.get_sura_content(sura_number, with_tashkeel, basmalah))
         return suras

@@ -1,4 +1,5 @@
 from ctypes import Union
+from typing import List
 from fastapi import FastAPI
 import pyquran as quranPkg
 from pyquran_interface import QuranRetrivalInterface
@@ -43,3 +44,8 @@ async def get_verse(sura_number: int, verse_number: int, with_tashkeel: bool = F
 @quranAppAPI.get("/quran/suras/")
 async def get_all_quran(with_tashkeel: bool = False, basmalah: bool = False):
     return await quranRetriavalInterface.get_all_suras(with_tashkeel=with_tashkeel, basmalah=basmalah)
+
+
+@quranAppAPI.post("/quran/suras/")
+async def get_suras_from_quran(suras_numbers: List[int], with_tashkeel: bool = False, basmalah: bool = False):
+    return await quranRetriavalInterface.get_selected_suras_content(suras_numbers, with_tashkeel, basmalah)
