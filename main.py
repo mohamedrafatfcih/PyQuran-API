@@ -49,3 +49,8 @@ async def get_all_quran(with_tashkeel: bool = False, basmalah: bool = False):
 @quranAppAPI.post("/quran/suras/")
 async def get_suras_from_quran(suras_numbers: List[int], with_tashkeel: bool = False, basmalah: bool = False):
     return await quranRetriavalInterface.get_selected_suras_content(suras_numbers, with_tashkeel, basmalah)
+
+
+@quranAppAPI.get("/suras/verse/backwalter/")
+async def get_verse_backwalter(sura_number: int, verse_number: int, reverse: bool = False):
+    return await quranRetriavalInterface.get_backwalter_transiltration(sura_number, verse_number, reverse)

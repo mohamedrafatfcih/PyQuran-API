@@ -21,3 +21,7 @@ class QuranRetrivalInterface:
         for sura_number in suras_numbers:
             suras.append(await self.get_sura_content(sura_number, with_tashkeel, basmalah))
         return suras
+
+    async def get_backwalter_transiltration(self, sura_number: int, verse_number: int, reverse: bool):
+        verse = await self.get_verse_content(sura_number, verse_number)
+        return quranPkg.buckwalter_transliteration(str(verse), reverse)
