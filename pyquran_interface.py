@@ -25,3 +25,10 @@ class QuranRetrivalInterface:
     async def get_backwalter_transiltration(self, sura_number: int, verse_number: int, reverse: bool):
         verse = await self.get_verse_content(sura_number, verse_number)
         return quranPkg.buckwalter_transliteration(str(verse), reverse)
+
+    async def split_verse_into_letters_diacritics(self, sura_number: int, verse_number: int):
+        verse = await self.get_verse_content(sura_number, verse_number, with_tashkeel=True)
+        letters = quranPkg.grouping_letter_diacritics(verse)
+        return {"verse": verse,
+                "letters_with_diacritics": letters,
+                }

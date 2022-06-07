@@ -54,3 +54,8 @@ async def get_suras_from_quran(suras_numbers: List[int], with_tashkeel: bool = F
 @quranAppAPI.get("/suras/verse/backwalter/")
 async def get_verse_backwalter(sura_number: int, verse_number: int, reverse: bool = False):
     return await quranRetriavalInterface.get_backwalter_transiltration(sura_number, verse_number, reverse)
+
+
+@quranAppAPI.get("/quran/letters-with-diacritics/")
+async def split_into_letters_with_diacritics(sura_number: int, verse_number: int):
+    return await quranRetriavalInterface.split_verse_into_letters_diacritics(sura_number, verse_number)
