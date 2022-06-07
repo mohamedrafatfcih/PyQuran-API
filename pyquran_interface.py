@@ -1,8 +1,10 @@
 import pyquran as quranPkg
+from constants import Constants
 from typing import List
 
 
 class QuranRetrivalInterface:
+    constants = Constants()
 
     async def get_sura_content(self, sura_number: int, with_tashkeel: bool = False, basmalah: bool = False):
         return quranPkg.quran.get_sura(sura_number, with_tashkeel, basmalah)
@@ -24,11 +26,16 @@ class QuranRetrivalInterface:
 
     async def get_backwalter_transiltration(self, sura_number: int, verse_number: int, reverse: bool):
         verse = await self.get_verse_content(sura_number, verse_number)
-        return quranPkg.buckwalter_transliteration(str(verse), reverse)
+        backwaltered_verse = quranPkg.buckwalter_transliteration(
+            str(verse), reverse)
+        return {
+            self.constants.verse_KEY: verse,
+            self.constants.backwaltered_verse_KEY: backwaltered_verse,
+        }
 
     async def split_verse_into_letters_diacritics(self, sura_number: int, verse_number: int):
         verse = await self.get_verse_content(sura_number, verse_number, with_tashkeel=True)
         letters = quranPkg.grouping_letter_diacritics(verse)
-        return {"verse": verse,
-                "letters_with_diacritics": letters,
+        return {self.constants.verse_KEY: verse,
+                self.constants.letters_with_diacritics_KEY: letters,
                 }
