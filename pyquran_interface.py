@@ -7,7 +7,13 @@ class QuranRetrievalInterface:
     constants = Constants()
 
     async def get_sura_content(self, sura_number: int, with_tashkeel: bool = False, basmalah: bool = False):
-        return quranPkg.quran.get_sura(sura_number, with_tashkeel, basmalah)
+        sura = quranPkg.quran.get_sura(sura_number, with_tashkeel, basmalah)
+        sura_name = quranPkg.quran.get_sura_name(sura_number)
+        return {
+            self.constants.sura_number_KEY: sura_number,
+            self.constants.sura_name_KEY: sura_name,
+            self.constants.sura_KEY: sura,
+        }
 
     async def get_verse_content(self, sura_number: int, verse_number: int, with_tashkeel: bool = False):
         return quranPkg.quran.get_verse(sura_number, verse_number, with_tashkeel=with_tashkeel)
