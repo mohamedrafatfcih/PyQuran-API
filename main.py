@@ -2,10 +2,10 @@ from ctypes import Union
 from typing import List
 from fastapi import FastAPI
 import pyquran as quranPkg
-from pyquran_interface import QuranRetrivalInterface
+from pyquran_interface import QuranRetrievalInterface
 
 quranAppAPI = FastAPI()
-quranRetriavalInterface = QuranRetrivalInterface()
+quranRetrievalInterface = QuranRetrievalInterface()
 
 
 @quranAppAPI.get("/")
@@ -33,29 +33,29 @@ async def get_sura_number(sura_name: str):
 
 @quranAppAPI.get("/suras/")
 async def get_sura(sura_number: int,  with_tashkeel: bool = False, basmalah: bool = False):
-    return await quranRetriavalInterface.get_sura_content(sura_number, with_tashkeel, basmalah)
+    return await quranRetrievalInterface.get_sura_content(sura_number, with_tashkeel, basmalah)
 
 
 @quranAppAPI.get("/suras/verse")
 async def get_verse(sura_number: int, verse_number: int, with_tashkeel: bool = False):
-    return await quranRetriavalInterface.get_verse_content(sura_number, verse_number, with_tashkeel)
+    return await quranRetrievalInterface.get_verse_content(sura_number, verse_number, with_tashkeel)
 
 
 @quranAppAPI.get("/quran/suras/")
 async def get_all_quran(with_tashkeel: bool = False, basmalah: bool = False):
-    return await quranRetriavalInterface.get_all_suras(with_tashkeel=with_tashkeel, basmalah=basmalah)
+    return await quranRetrievalInterface.get_all_suras(with_tashkeel=with_tashkeel, basmalah=basmalah)
 
 
 @quranAppAPI.post("/quran/suras/")
 async def get_suras_from_quran(suras_numbers: List[int], with_tashkeel: bool = False, basmalah: bool = False):
-    return await quranRetriavalInterface.get_selected_suras_content(suras_numbers, with_tashkeel, basmalah)
+    return await quranRetrievalInterface.get_selected_suras_content(suras_numbers, with_tashkeel, basmalah)
 
 
 @quranAppAPI.get("/suras/verse/backwalter/")
 async def get_verse_backwalter(sura_number: int, verse_number: int, reverse: bool = False):
-    return await quranRetriavalInterface.get_backwalter_transiltration(sura_number, verse_number, reverse)
+    return await quranRetrievalInterface.get_backwalter_transiltration(sura_number, verse_number, reverse)
 
 
 @quranAppAPI.get("/suras/verse/letters-with-diacritics/")
 async def split_into_letters_with_diacritics(sura_number: int, verse_number: int):
-    return await quranRetriavalInterface.split_verse_into_letters_diacritics(sura_number, verse_number)
+    return await quranRetrievalInterface.split_verse_into_letters_diacritics(sura_number, verse_number)

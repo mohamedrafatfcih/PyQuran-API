@@ -3,7 +3,7 @@ from constants import Constants
 from typing import List
 
 
-class QuranRetrivalInterface:
+class QuranRetrievalInterface:
     constants = Constants()
 
     async def get_sura_content(self, sura_number: int, with_tashkeel: bool = False, basmalah: bool = False):
