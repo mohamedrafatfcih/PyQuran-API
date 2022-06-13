@@ -1,1 +1,1 @@
-web: gunicorn -w 4 -k uvicorn.workers.UvicornWorker main: quranAppAPI
+web: gunicorn -w 4 -k uvicorn.workers.UvicornWorker main:quranAppAPI
