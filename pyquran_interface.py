@@ -45,3 +45,24 @@ class QuranRetrievalInterface:
         return {self.constants.verse_KEY: verse,
                 self.constants.letters_with_diacritics_KEY: letters,
                 }
+
+    def check_defined_system(self):
+        return quranPkg.systems.default
+
+    def count_text_rasm(self, sura_number: int, verse_number: int = 0):
+        text_for_rasm_count = ""
+        sura = quranPkg.quran.get_sura(sura_number)
+        if verse_number != 0:
+            verse = quranPkg.quran.get_verse(sura_number, verse_number)
+            text_for_rasm_count = verse
+        else:
+            text_for_rasm_count = sura
+        defualt_rasm = self.check_defined_system()
+        rasm_count_list = quranPkg.count_rasm(
+            text_for_rasm_count, defualt_rasm).tolist()
+        letter_frequency_dic = []
+        for count in range(0, len(rasm_count_list)):
+            letter_frequency_dic.append({
+                str(defualt_rasm[count][0]): rasm_count_list[count]
+
+            })
