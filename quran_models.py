@@ -15,6 +15,7 @@ class SuraConfigs(BaseModel):
     with_tashkeel: bool = False
     with_basmalh: bool = False
     verse_backwalter_reverse = False
+    with_letters: bool = False
 
 
 class Sura(BaseModel):

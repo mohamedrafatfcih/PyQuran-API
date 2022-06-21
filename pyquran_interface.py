@@ -8,17 +8,19 @@ class QuranRetrievalInterface:
     def get_sura_content(self, sura_configs: SuraConfigs) -> Sura:
         verses_str_list = quranPkg.quran.get_sura(
             sura_configs.number, sura_configs.with_tashkeel, sura_configs.with_basmalh)
-        verses = [self.mapToVerse(verse_str, verse_number, sura_configs.with_basmalh)
+        verses = [self.mapToVerse(sura_configs, verse_str, verse_number)
                   for verse_number, verse_str in enumerate(verses_str_list)]
         sura_configs = self.get_sura_name(sura_configs)
         sura = Sura(configs=sura_configs, verses=verses)
         sura.count_verses()
         return sura
 
-    def mapToVerse(self, verse_str: str, verse_number: int, with_basmalla: bool = False) -> Verse:
-        verse_number = verse_number if with_basmalla else (verse_number + 1)
+    def mapToVerse(self, sura_configs: SuraConfigs, verse_str: str, verse_number: int) -> Verse:
+        verse_number = verse_number if sura_configs.with_basmalh else (
+            verse_number + 1)
         verse = Verse(number=verse_number, content=verse_str)
-        verse.letters = quranPkg.grouping_letter_diacritics(verse_str)
+        if sura_configs.with_letters:
+            verse.letters = quranPkg.grouping_letter_diacritics(verse_str)
         return verse
 
     def get_sura_name(self, sura_configs: SuraConfigs) -> SuraConfigs:

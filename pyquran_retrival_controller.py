@@ -17,11 +17,8 @@ class QuranRetrievalController:
         return sura.dict(exclude_none=True, exclude_defaults=True, )
 
     async def get_verse_content(self, sura_number: int, verse_number: int, with_tashkeel: bool = False):
-        sura_configs = SuraConfigs()
-        sura_configs.number = sura_number
-        sura_configs.selected_verse_number = verse_number
-        sura_configs.with_tashkeel = with_tashkeel
-
+        sura_configs = SuraConfigs(
+            number=sura_number, selected_verse_number=verse_number, with_tashkeel=with_tashkeel)
         return self.quranRetrievalInterface.get_verse_content(sura_configs)
 
     async def get_all_suras(self, with_tashkeel: bool, basmalah: bool):
