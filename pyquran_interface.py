@@ -33,6 +33,7 @@ class QuranRetrievalInterface:
     def get_all_suras(self, sura_configs: SuraConfigs) -> List[Sura]:
         suras: List[Sura] = []
         for sura_number in range(1, 115):
+            sura_configs.number = sura_number
             suras.append(self.get_sura_content(sura_configs))
         return suras
 
