@@ -12,8 +12,6 @@ class QuranRetrievalController:
     async def get_sura_content(self, sura_number: int, with_tashkeel: bool = False, basmalah: bool = False):
         sura_configs = SuraConfigs(
             number=sura_number, with_tashkeel=with_tashkeel, with_basmalh=basmalah)
-        sura_configs = self.quranRetrievalInterface.get_sura_name(
-            sura_configs=sura_configs)
         sura = self.quranRetrievalInterface.get_sura_content(
             sura_configs=sura_configs)
         return sura.dict(exclude_none=True, exclude_defaults=True, )
