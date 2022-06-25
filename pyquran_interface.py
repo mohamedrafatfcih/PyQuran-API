@@ -20,8 +20,11 @@ class QuranRetrievalInterface:
             verse_number + 1)
         verse = Verse(number=verse_number, content=verse_str)
         if sura_configs.with_letters:
-            verse.letters = quranPkg.grouping_letter_diacritics(verse_str)
+            verse.letters = self.get_verse_letters_diacritics(verse_str)
         return verse
+
+    def get_verse_letters_diacritics(self, verse_content: str) -> List[str]:
+        return quranPkg.grouping_letter_diacritics(verse_content)
 
     def get_sura_name(self, sura_configs: SuraConfigs) -> SuraConfigs:
         sura_configs.name = quranPkg.quran.get_sura_name(sura_configs.number)
@@ -30,7 +33,8 @@ class QuranRetrievalInterface:
     def get_verse_content(self, sura_configs: SuraConfigs) -> Verse:
         verse_content = quranPkg.quran.get_verse(
             sura_configs.number, sura_configs.selected_verse_number, sura_configs.with_tashkeel)
-        return Verse(sura_configs.selected_verse_number, verse_content)
+        letters_diacritics = self.get_verse_letters_diacritics(verse_content)
+        return Verse(number=sura_configs.selected_verse_number, content=verse_content, letters=letters_diacritics)
 
     def get_all_suras(self, sura_configs: SuraConfigs) -> List[Sura]:
         suras: List[Sura] = []
