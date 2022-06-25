@@ -22,12 +22,12 @@ async def basmalla():
 
 @quranAppAPI.get("/suras/names/")
 async def get_sura_name(sura_number: int = None):
-    return quranPkg.quran.get_sura_name(sura_number)
+    return await quranRetrievalController.get_sura_name(sura_number)
 
 
 @quranAppAPI.get("/suras/number")
 async def get_sura_number(sura_name: str):
-    return quranPkg.quran.get_sura_number(sura_name)
+    return await quranRetrievalController.get_sura_number(sura_name)
 
 
 @quranAppAPI.get("/suras/")

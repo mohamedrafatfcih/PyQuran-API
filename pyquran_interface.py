@@ -30,6 +30,10 @@ class QuranRetrievalInterface:
         sura_configs.name = quranPkg.quran.get_sura_name(sura_configs.number)
         return sura_configs
 
+    def get_sura_number(self, sura_configs: SuraConfigs) -> SuraConfigs:
+        sura_configs.number = quranPkg.quran.get_sura_number(sura_configs.name)
+        return sura_configs
+
     def get_verse_content(self, sura_configs: SuraConfigs) -> Verse:
         verse_content = quranPkg.quran.get_verse(
             sura_configs.number, sura_configs.selected_verse_number, sura_configs.with_tashkeel)
