@@ -1,5 +1,5 @@
 class Constants:
-    quran_api_title = "Pyquran API"
+    quran_api_title = "PyQuran API"
     quran_api_desc = """ 
     ## PyQuran API 
         # It is a reflection for the **PyQuran package**.
@@ -17,6 +17,10 @@ class Constants:
             "name": "Quran Retrieval",
             "description": "Retrieve all quran content"
         },
+        {
+            "name": "In Progress",
+            "description": ""
+        }
     ]
 
     sura_name_KEY = "sura_name"
