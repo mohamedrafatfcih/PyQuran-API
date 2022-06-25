@@ -1,8 +1,10 @@
 class Constants:
     quran_api_title = "Pyquran API"
     quran_api_desc = """ 
-    ## Pyquran API 
-        # is a reflection for the **Pyquran package**.
+    ## PyQuran API 
+        # It is a reflection for the **PyQuran package**.
+        # It targets to facilitate the consumption of this package for all various frameworks and applications.
+        #   https://github.com/hci-lab/PyQuran
         #   https://hci-lab.github.io/PyQuran-Private/
     """
     quran_api_version = "0.0.1"
