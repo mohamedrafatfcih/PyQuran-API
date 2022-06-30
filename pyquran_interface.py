@@ -56,8 +56,10 @@ class QuranRetrievalInterface:
     def get_backwalter_transiltration(self, sura_configs: SuraConfigs) -> Verse:
         verse = self.get_verse_content(sura_configs)
         backwaltered_verse = quranPkg.buckwalter_transliteration(
-            str(verse), sura_configs.verse_backwalter_reverse)
-        return Verse(sura_configs.selected_verse_number, backwaltered_verse)
+            verse.content, sura_configs.verse_backwalter_reverse)
+        verse.number = sura_configs.selected_verse_number
+        verse.content = backwaltered_verse
+        return verse
 
     def split_verse_into_letters_diacritics(self, sura_configs: SuraConfigs) -> Verse:
         verse = self.get_verse_content(sura_configs)

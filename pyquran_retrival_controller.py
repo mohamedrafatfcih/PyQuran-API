@@ -46,13 +46,11 @@ class QuranRetrievalController:
         return suras
 
     async def get_backwalter_transiltration(self, sura_number: int, verse_number: int, reverse: bool):
-        verse = await self.get_verse_content(sura_number, verse_number)
-        backwaltered_verse = quranPkg.buckwalter_transliteration(
-            str(verse), reverse)
-        return {
-            self.constants.verse_KEY: verse,
-            self.constants.backwaltered_verse_KEY: backwaltered_verse,
-        }
+        sura_configs = SuraConfigs(
+            number=sura_number, selected_verse_number=verse_number, verse_backwalter_reverse=reverse)
+        verse = self.quranRetrievalInterface.get_backwalter_transiltration(
+            sura_configs)
+        return verse
 
     async def split_verse_into_letters_diacritics(self, sura_number: int, verse_number: int):
         verse = await self.get_verse_content(sura_number, verse_number, with_tashkeel=True)
