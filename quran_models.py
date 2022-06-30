@@ -14,7 +14,7 @@ class SuraConfigs(BaseModel):
     selected_verse_number: int = None  # Refactor to list & configs
     with_tashkeel: bool = False
     with_basmalh: bool = False
-    verse_backwalter_reverse = False
+    verse_backwalter_reverse: bool = False
     with_letters: bool = False
 
 

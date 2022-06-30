@@ -52,12 +52,12 @@ class QuranRetrievalController:
             sura_configs)
         return verse
 
-    async def split_verse_into_letters_diacritics(self, sura_number: int, verse_number: int):
-        verse = await self.get_verse_content(sura_number, verse_number, with_tashkeel=True)
-        letters = quranPkg.grouping_letter_diacritics(verse)
-        return {self.constants.verse_KEY: verse,
-                self.constants.letters_with_diacritics_KEY: letters,
-                }
+    async def split_verse_into_letters_diacritics(self, sura_number: int, verse_number: int, with_tashkeel: bool = False):
+        sura_configs = SuraConfigs(
+            number=sura_number, selected_verse_number=verse_number, with_tashkeel=with_tashkeel)
+        verse = self.quranRetrievalInterface.split_verse_into_letters_diacritics(
+            sura_configs)
+        return verse
 
     def check_defined_system(self):
         return quranPkg.systems.default

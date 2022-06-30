@@ -64,8 +64,8 @@ async def get_verse_backwalter(sura_number: int = request_validation.sura_number
 
 
 @quranAppAPI.get("/suras/verse/letters-with-diacritics/", tags=["Quran Retrieval"])
-async def split_into_letters_with_diacritics(sura_number: int = request_validation.sura_number_validator, verse_number: int = request_validation.verse_number_validator):
-    return await quranRetrievalController.split_verse_into_letters_diacritics(sura_number, verse_number)
+async def split_into_letters_with_diacritics(sura_number: int = request_validation.sura_number_validator, verse_number: int = request_validation.verse_number_validator, with_tashkeel: bool = False):
+    return await quranRetrievalController.split_verse_into_letters_diacritics(sura_number, verse_number, with_tashkeel)
 
 
 @quranAppAPI.get("/defualt-system/", tags=["In Progress"])
