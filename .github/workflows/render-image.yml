@@ -1,0 +1,25 @@
+name: Publish Render image
+
+on:
+  push:
+    branches: [render-deploy]
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Build Linux image
+        run: docker build --platform linux/amd64 --label org.opencontainers.image.source=https://github.com/mohamedrafatfcih/PyQuran-API --tag ghcr.io/mohamedrafatfcih/pyquran-api:v1 .
+      - name: Publish to GitHub Container Registry
+        env:
+          REGISTRY_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          printf '%s' "$REGISTRY_TOKEN" | docker login ghcr.io --username "$GITHUB_ACTOR" --password-stdin
+          docker push ghcr.io/mohamedrafatfcih/pyquran-api:v1
