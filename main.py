@@ -5,13 +5,14 @@ from request_validation import RequestValidation
 
 
 quranRetrievalController = QuranRetrievalController()
-quranAppAPI = FastAPI(
+app = FastAPI(
     title=quranRetrievalController.constants.quran_api_title,
     description=quranRetrievalController.constants.quran_api_desc,
     version=quranRetrievalController.constants.quran_api_version,
     license_info=quranRetrievalController.constants.quran_api_licence,
     openapi_tags=quranRetrievalController.constants.endpoints_meta_tags,
 )
+quranAppAPI = app
 request_validation = RequestValidation()
 
 
