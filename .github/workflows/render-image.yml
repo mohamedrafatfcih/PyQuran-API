@@ -21,7 +21,7 @@ jobs:
         run: |
           docker run --detach --rm --publish 127.0.0.1:8000:8000 --name pyquran ghcr.io/mohamedrafatfcih/pyquran-api-render:v1
           trap 'docker logs pyquran; docker stop pyquran' EXIT
-          curl --fail --silent --show-error --retry 10 --retry-connrefused --retry-delay 1 'http://127.0.0.1:8000/suras/verse?sura_number=1&verse_number=1' |
+          curl --fail --silent --show-error --retry 10 --retry-all-errors --retry-delay 1 --retry-max-time 30 'http://127.0.0.1:8000/suras/verse?sura_number=1&verse_number=1' |
             python3 -c 'import json, sys; verse = json.load(sys.stdin); assert verse["number"] == 1 and "بسم" in verse["content"]'
       - name: Publish to GitHub Container Registry
         env:
