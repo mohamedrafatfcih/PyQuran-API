@@ -1,5 +1,5 @@
-from operator import ge, gt, le
 from fastapi import Query
+from pydantic import conint
 
 
 class RequestValidation:
@@ -17,7 +17,10 @@ class RequestValidation:
                                            le=114,
                                            )
     verse_number_validator = Query(
-        default=..., title="Verse Number", description="Verse number is integer")
+        default=..., title="Verse Number", ge=1)
 
     suras_numbers_list_validator = Query(
         default=..., title="Suras Numbers", description="List of suras numbers that you want to retrieve.")
+
+
+SuraNumber = conint(ge=1, le=114)

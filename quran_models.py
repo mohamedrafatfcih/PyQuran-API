@@ -3,7 +3,7 @@ from typing import List, Union
 
 
 class Verse(BaseModel):
-    number: int = 0
+    number: int
     content: str = ""
     letters: List[str] = None
 
@@ -24,6 +24,5 @@ class Sura(BaseModel):
     verses_count: int = 0
 
     def count_verses(self) -> int:
-        self.verses_count = len(
-            self.verses) - 1 if self.configs.with_basmalh else len(self.verses)
+        self.verses_count = sum(verse.number > 0 for verse in self.verses)
         return self.verses_count
